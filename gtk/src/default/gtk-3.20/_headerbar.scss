@@ -400,3 +400,183 @@ headerbar,
     }
   }
 }
+
+// Dark Toolbars
+
+.primary-toolbar:not(.libreoffice-toolbar),
+toolbar.primary-toolbar:not(.libreoffice-toolbar),
+.primary-toolbar:not(.libreoffice-toolbar) toolbar, /* eom */
+.maximized .titlebar.toolbar-mode:not(:backdrop) {
+  //@include headerbar_fill($headerbar_bg_color, $hc: $headerbar_border_color);
+  //background-image: none;
+  background-color: $headerbar_bg_color;
+  color: $headerbar_fg_color;
+  border-color: darken($headerbar_bg_color, 7%);
+  box-shadow: none;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-radius: 0;
+
+  label .title {
+    color: $headerbar_fg_color;
+  }
+
+  &:backdrop {
+    background-image: none;
+    border-color: mix(darken($inkstone, 11%), darken($inkstone, 1%), 80%);
+    background-color: $backdrop_headerbar_bg_color;
+  }
+
+  entry {
+    &, &:backdrop {
+      border-color: darken($headerbar_bg_color, 8%);
+    }
+    &:focus {  @include entry(focus); }
+  }
+
+  button,
+  button.toggle,
+  button.popup.toggle,
+  button.image-button,
+  button.image-button.toggle,
+  button.text-button,
+  button.text-button.toggle,
+  box button.toggle,
+  buttonbox.toggle,
+  stackswitcher button,
+  filechooser .path-bar.linked>button,
+  .path-bar button {
+
+    @include button(normal, $_headerbar_button_bg, $headerbar_fg_color);
+    &.flat {
+      @include button(undecorated);
+    }
+
+    &:hover {
+      @include button(hover, $_headerbar_button_bg, $headerbar_fg_color);
+    }
+    &:active,
+    &:checked {
+      @include button(active, $_headerbar_button_bg, $headerbar_fg_color);
+      border-color: black;
+    }
+
+    &:backdrop {
+      $_btn_backdrop_border: darken($headerbar_bg_color, 8%);
+      &,
+      &.flat {
+          @include button(backdrop, $backdrop_headerbar_bg_color, $backdrop_headerbar_fg_color);
+
+          -gtk-icon-effect: none;
+          border-color: $_btn_backdrop_border;
+
+          &:active,
+          &.toggle:active,
+          &:checked,
+          &.toggle:checked {
+            $_bg: if($variant=='light', darken($backdrop_headerbar_bg_color, 8%), $backdrop_headerbar_bg_color);
+            @include button(backdrop-active, $_bg, $backdrop_headerbar_fg_color);
+            border-color: $_btn_backdrop_border;
+          }
+
+          &:disabled {
+            @include button(backdrop-insensitive, if($variant=='light', darken($headerbar_bg_color, 15%), $headerbar_bg_color), $backdrop_headerbar_fg_color);
+
+            border-color: $_btn_backdrop_border;
+
+            &:active,
+            &:checked {
+              @include button(backdrop-insensitive-active, $backdrop_headerbar_bg_color, $backdrop_headerbar_fg_color);
+              border-color: $_btn_backdrop_border;
+            }
+        }
+      }
+    }
+
+    &.flat { &:backdrop, &:disabled, &:backdrop:disabled { @include button(undecorated); }}
+
+    &:disabled {
+      @include button(insensitive, if($variant=='light', darken($headerbar_bg_color, 15%), $headerbar_bg_color), $headerbar_fg_color);
+      border-color: darken($headerbar_bg_color, 6%);
+
+      &:active,
+      &:checked {
+        @include button(insensitive-active, $headerbar_bg_color, $headerbar_fg_color);
+      }
+    }
+
+  }
+
+  separator {
+    &, &:backdrop {
+      background: image(darken(#3d3d3d, 11%));
+    }
+  }
+
+  @if $variant=='light' {
+    switch {
+      border-color: $_dark_border_color;
+      color: $headerbar_fg_color;
+      background-color: $_headerbar_button_bg;
+      &:hover { background-color: lighten($_headerbar_button_bg, 2%); }
+      &:backdrop {
+        background-color: lighten($headerbar_bg_color,1%);
+        box-shadow: none;
+      }
+      &:disabled {
+        background-color: $headerbar_bg_color;
+        border-color: $_dark_border_color;
+      }
+
+      &:checked {
+        color: $selected_fg_color;
+        border-color: transparentize($suggested_bg_color, 0.6);
+        background-color: $suggested_bg_color;
+      }
+
+      slider {
+        border-color: $_dark_border_color;
+
+        &:checked {
+          border-color: $suggested_border_color;
+        }
+        &:disabled {
+          background-color: $headerbar_bg_color;
+          border-color: $_dark_border_color;
+          @include button(insensitive, $headerbar_bg_color);
+        }
+      }
+    }
+  }
+}
+
+
+/*********
+ * Dark Menus *
+ *********/
+menubar,
+.menubar {
+  -GtkWidget-window-dragging: true;
+  padding: 0px;
+  box-shadow: inset 0 -1px transparentize(black, 0.9);
+  background-color: $headerbar_bg_color;
+  color: $headerbar_fg_color;
+
+  &:backdrop {
+    background-image: none;
+    background-color: $backdrop_headerbar_bg_color;
+    color: $backdrop_headerbar_fg_color;
+  }
+
+  > menuitem {
+    &:hover { //Seems like it :hover even with keyboard focus
+      box-shadow: inset 0 -2px $selected_bg_color;
+      color: $headerbar_fg_color;
+    }
+
+    &:disabled {
+      color: $insensitive_fg_color;
+      box-shadow: none;
+    }
+  }
+}
