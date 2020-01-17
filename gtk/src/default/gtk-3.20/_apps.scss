@@ -330,9 +330,10 @@ terminal-window {
         border: none;
       }
 
-      viewport.frame box.vertical treeview.view.places-treeview {
+      .frame { border: none; }
+      .view, row {
         // use sidebar bg color
-        background-image: image($sidebar_bg_color);
+        background-color: $sidebar_bg_color;
         border-radius: 0; // get rid of weird radius on selected rows
         &:backdrop { background-image: image($backdrop_sidebar_bg_color); }
         &:selected { background: $selected_bg_color; }
@@ -349,8 +350,8 @@ terminal-window {
     }
 
     toolbar.horizontal.primary-toolbar {
-      // add border under toolbar
-      border-bottom: 1px solid $borders_color;
+      // add border under toolbar VARIANTS?
+      //border-bottom: 1px solid $borders_color;
 
       widget.linked.raised button {
         // use proper icons for next and left in stackswitcher-like pathbar
@@ -384,6 +385,20 @@ terminal-window {
         }
       }
     }
+  }
+
+  .nemo-window .nemo-window-pane widget.entry {
+    background-clip: padding-box;
+    min-height: 28px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: $text_color;
+    border: 1px solid $borders_color;
+    border-radius: 3px;
+  }
+  .nemo-window .nemo-window-pane widget.entry:selected {
+    background-color: $selected_bg_color;
+    color: $selected_fg_color;
   }
 
   /*************
