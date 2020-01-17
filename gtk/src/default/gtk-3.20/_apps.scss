@@ -503,7 +503,7 @@ terminal-window {
 * Unity7 *
 ***********/
 
-$panel_bg_color: lighten($jet, 2%);
+$panel_bg_color: $headerbar_bg_color; //lighten($jet, 2%);
 $panel_fg_color: $porcelain;
 $wm_border_unfocused: none;
 $wm_border_focused: if($variant=='light', transparentize(black, 0.9), transparentize($borders_color, 0.1));
@@ -511,33 +511,32 @@ $titlebar_bg_color: $headerbar_bg_color;
 $titlebar_fg_color: $headerbar_fg_color;
 
 UnityDecoration {
-  -UnityDecoration-extents: 24px 1px 1px 1px;
+  -UnityDecoration-extents: 28px 0px 0px 0px;
   -UnityDecoration-input-extents: 10px;
 
-  -UnityDecoration-shadow-offset-x: 1px;
-  -UnityDecoration-shadow-offset-y: 1px;
-  -UnityDecoration-active-shadow-color: transparentize(black, 0.5);
-  -UnityDecoration-active-shadow-radius: 10px;
-  -UnityDecoration-inactive-shadow-color: transparentize(black, 0.999);
-  -UnityDecoration-inactive-shadow-radius: 0px;
+  -UnityDecoration-shadow-offset-x: 0px;
+  -UnityDecoration-shadow-offset-y: 3px;
+  -UnityDecoration-active-shadow-color: rgba(0, 0, 0, 0.48);
+  -UnityDecoration-active-shadow-radius: 18px;
+  -UnityDecoration-inactive-shadow-color: rgba(0, 0, 0, 0.32);
+  -UnityDecoration-inactive-shadow-radius: 6px;
 
-  -UnityDecoration-glow-size: 0px;
+  -UnityDecoration-glow-size: 10px;
   -UnityDecoration-glow-color: $selected_bg_color;
 
-  -UnityDecoration-title-indent: 0px;
-  -UnityDecoration-title-fade: 0px;
-  -UnityDecoration-title-alignment: 0;
-  
-  // Unity "titlebars"
+  -UnityDecoration-title-indent: 10px;
+  -UnityDecoration-title-fade: 35px;
+  -UnityDecoration-title-alignment: 0.5;
+
   .top {
     border: none;
     border-radius: $window_radius $window_radius 0 0;
     // padding used for the min/max/close titlebuttons
-    padding: 1px (4px + 3px) 0 (4px + 3px);
+    padding: 1px 6px 1px 6px;
     background-color: $titlebar_bg_color;
     color: $titlebar_fg_color;
     text-shadow: none;
-    box-shadow: inset 0 1px $headerbar_border_color;
+    box-shadow: inset 0 1px #474444;//$headerbar_border_color;
 
     &:hover {
       // nothing changes here
@@ -545,14 +544,16 @@ UnityDecoration {
 
     &:backdrop {
       border: none;
+      background-image: none;
       background-color: $backdrop_headerbar_bg_color;
       color: $backdrop_headerbar_fg_color;
-      box-shadow: none;
+      box-shadow: inset 0 1px #474444;//transparentize($headerbar_border_color, 0.4);
     }
   }
 
   // this is the window border outside of the titlebar!
   .left, .right, .bottom {
+    border: none;
     background-color: transparent;
     &:backdrop { background-color: transparent; }
   }
@@ -560,7 +561,7 @@ UnityDecoration {
 
 // unity 7 top panel - equivalent to the gnome panel
 UnityPanelWidget, .unity-panel {
-  background-color: $panel_bg_color;
+  background-color: $headerbar_bg_color;
   color: $panel_fg_color;
   border: 0;
 }
@@ -570,7 +571,7 @@ UnityPanelWidget, .unity-panel {
     border-width: 0 1px;
     color: $panel_fg_color;
     background-color: transparent;
-    
+
     &:hover, *:hover {
       box-shadow: inset 0 -2px 0 0 $selected_bg_color;
       background-color: transparent;
