@@ -5,8 +5,4 @@ project('Yaru',
         default_options: ['prefix=/usr'])
 
 subdir('icons')
-subdir('gnome-shell')
 subdir('gtk')
-subdir('sounds')
-subdir('sessions')
-subdir('communitheme-compat')
